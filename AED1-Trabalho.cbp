@@ -32,6 +32,12 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="AVLTree.cpp" />
+		<Unit filename="AVLTree.h" />
+		<Unit filename="Contato.cpp" />
+		<Unit filename="Contato.h" />
+		<Unit filename="HashTable.cpp" />
+		<Unit filename="HashTable.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />

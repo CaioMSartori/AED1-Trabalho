@@ -1,0 +1,23 @@
+# depslib dependency file v1.0
+1750398468 source:c:\semestre3\aed1\aed1-trabalho\avltree.cpp
+
+1750403927 source:c:\semestre3\aed1\aed1-trabalho\contato.cpp
+	<string>
+	"Contato.h"
+
+1750403927 c:\semestre3\aed1\aed1-trabalho\contato.h
+	<string>
+
+1584205420 source:c:\semestre3\aed1\aed1-trabalho\main.cpp
+	<iostream>
+
+1750403958 source:c:\semestre3\aed1\aed1-trabalho\hashtable.cpp
+	<iostream>
+	<string>
+	"HashTable.h"
+	"Contato.h"
+
+1750403927 c:\semestre3\aed1\aed1-trabalho\hashtable.h
+	<string>
+	"Contato.h"
+
