@@ -43,20 +43,72 @@ void HashTable::clear_() {
 
 void HashTable::insert_(Contato c) {
     int pos = transform_(c.getNome());
-    HashPointer newContato = new Position;
-    newContato->contato = c;
-    newContato->nextContato = NULL;
 
     if(table[pos] == NULL) {
+        HashPointer newContato = new Position;
+        newContato->contato = c;
+        newContato->nextContato = NULL;
         table[pos] = newContato;
+        cout << "Insercao realizada com sucesso" << endl;
     } else {
         HashPointer p;
         p = table[pos];
+        if(p->contato.getNome() == c.getNome()) {
+            cout << "Insercao falhou. Contato ja tinha sido inserido" << endl;
+            return;
+        }
         while(p->nextContato != NULL) {
             p = p->nextContato;
+            if(p->contato.getNome() == c.getNome()) {
+                cout << "Insercao falhou. Contato ja tinha sido inserido" << endl;
+                return;
+            }
         }
+        HashPointer newContato = new Position;
+        newContato->contato = c;
+        newContato->nextContato = NULL;
         p->nextContato = newContato;
+        cout << "Insercao realizada com sucesso" << endl;
     }
+}
+
+void HashTable::remove_(string n) {
+    int pos = transform_(n);
+    HashPointer p, q;
+    p = table[pos];
+    q = NULL;
+
+    while(p != NULL) {
+        if(p->contato.getNome() == n) {
+            if(q == NULL) {
+                table[pos] = p->nextContato;
+            } else {
+                q->nextContato = p->nextContato;
+            }
+            delete p;
+            cout << "Remocao realizada com sucesso" << endl;
+            return;
+        }
+        q = p;
+        p = p->nextContato;
+    }
+    cout << "Remocao falhou. Contato nao existe" << endl;
+}
+
+Contato HashTable::search_(string n) {
+    int pos = transform_(n);
+    HashPointer p;
+    p = table[pos];
+
+    while(p != NULL) {
+        if(p->contato.getNome() == n) {
+            cout << "Contato encontrado." << endl;
+            return p->contato;
+        }
+        p = p->nextContato;
+    }
+    cout << "Busca falhou. Contato nao encontrado" << endl;
+    return Contato();
 }
 
 int HashTable::transform_(string n) {

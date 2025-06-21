@@ -13,8 +13,8 @@ public:
     bool full_();
     void clear_();
     void insert_(Contato c);
-    bool remove_(string n);
-    Contato* search_(string n);
+    void remove_(string n);
+    Contato search_(string n);
 private:
     struct Position;
 
