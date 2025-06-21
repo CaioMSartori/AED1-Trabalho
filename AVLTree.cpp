@@ -47,6 +47,7 @@ void AVLTree::searchInsert_(Contato c, TreePointer &pA, bool &h) {
         pA->contato = c;
         pA->leftNode = pA->rightNode = NULL;
         pA->bal = 0;
+        cout << "Insercao realizada com sucesso" << endl;
     } else {
         if(c.getNome() < pA->contato.getNome()) {
             searchInsert_(c, pA->leftNode, h);
@@ -150,6 +151,7 @@ bool AVLTree::remove_(string n, TreePointer &p, bool &h) {
     bool removed;
 
     if(p == NULL) {
+        cout << "Remocao falhou. Contato nao existe" << endl;
         return false;
     }
     if(n < p->contato.getNome()) {
@@ -182,6 +184,7 @@ bool AVLTree::remove_(string n, TreePointer &p, bool &h) {
                 }
             }
             delete q;
+            cout << "Remocao realizada com sucesso" << endl;
             return true;
         }
     }
@@ -302,5 +305,26 @@ void AVLTree::balanceR(TreePointer &pA, bool &h) {
             pC->bal = 0;
         }
         break;
+    }
+}
+
+Contato AVLTree::search_(string n) {
+    return search_(n, root);
+}
+
+Contato AVLTree::search_(string n, TreePointer &t) {
+    if(t == NULL) {
+        cout << "Busca falhou. Contato nao encontrado" << endl;
+        return Contato();
+    }
+    if(n < t->contato.getNome()) {
+        return search_(n, t->leftNode);
+    } else {
+        if(n > t->contato.getNome()) {
+            return search_(n, t->rightNode);
+        } else {
+            cout << "Contato encontrado." << endl;
+            return t->contato;
+        }
     }
 }

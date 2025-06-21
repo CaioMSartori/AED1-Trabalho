@@ -35,6 +35,7 @@ private:
     void removeMin(TreePointer &q, TreePointer &r, bool &h);
     void balanceL(TreePointer &pA, bool &h);
     void balanceR(TreePointer &pA, bool &h);
+    Contato search_(string n, TreePointer &t);
 };
 
 #endif
