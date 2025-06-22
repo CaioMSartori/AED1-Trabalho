@@ -7,37 +7,37 @@ using namespace std;
 
 class AVLTree {
 public:
-    AVLTree();
-    ~AVLTree();
-    bool empty_();
-    bool full_();
-    void clear_();
-    void searchInsert_(Contato c);
-    bool remove_(string n);
-    Contato* search_(string n);
-    void print_();
+    AVLTree();                          // CONSTRUTOR
+    ~AVLTree();                         // DESTRUTOR
+    bool empty_();                      // VERIFICA SE A ARVORE ESTAH VAZIA
+    bool full_();                       // VERIFICA SE A ARVORE ESTAH CHEIA
+    void clear_();                      // LIMPA A RAIZ DA ARVORE
+    void searchInsert_(Contato c);      // INSERE UM CONTATO NA ARVORE
+    bool remove_(string n);             // REMOVE UM CONTATO DA ARVORE CHAMANDO O METODO PRIVADO
+    Contato* search_(string n);         // CHAMA A BUSCA CHAMANDO O METODO PRIVADO
+    void print_();                      // IMPRIME A ARVORE CHAMANDO O METODO PRIVADO E, SE ESTIVER VAZIA IMPRIME A MENSAGEM
+
 private:
+    // ESTRUTURA DA ARVORE:
     struct TreeNode;
-
     typedef TreeNode* TreePointer;
-
     struct TreeNode {
         Contato contato;
         int bal;
         TreePointer leftNode;
         TreePointer rightNode;
     };
-
     TreePointer root;
 
-    void clear_(TreePointer &t);
-    void searchInsert_(Contato c, TreePointer &pA, bool &h);
-    bool remove_(string n, TreePointer &p, bool &h);
-    void removeMin(TreePointer &q, TreePointer &r, bool &h);
-    void balanceL(TreePointer &pA, bool &h);
-    void balanceR(TreePointer &pA, bool &h);
-    Contato* search_(string n, TreePointer &t);
-    void print_(TreePointer &t);
+    // METODOS:
+    void clear_(TreePointer &t);                                // AUXILIA NA LIMPEZA DA ARVORE
+    void searchInsert_(Contato c, TreePointer &pA, bool &h);    // AUXILIA NA INSERCAO DO CONTATO NO METODO ANTERIOR
+    bool remove_(string n, TreePointer &p, bool &h);            // FAZ A REMOCAO DO NOH E REALIZA O BALANCEAMENTO DA ARVORE APOS A REMOCAO
+    void removeMin(TreePointer &q, TreePointer &r, bool &h);    // AUXILIA NA REMOCAO AO REMOVER O MENOR NOH
+    void balanceL(TreePointer &pA, bool &h);                    // REALIZA O BALANCEAMENTO DA ARVORE QUANDO ESTAH EM DESEQUILIBRIO A DIREITA
+    void balanceR(TreePointer &pA, bool &h);                    // REALIZA O BALANCEAMENTO DA ARVORE QUANDO ESTAH EM DESEQUILIBRIO A ESQUERDA
+    Contato* search_(string n, TreePointer &t);                 // REALIZA A BUSCA DO CONTATO ANALIZANDO CADA NOH
+    void print_(TreePointer &t);                                // FAZ A IMPRESSAO DE TODOS OS CONTATOS ARMAZENADOS NA ARVORE
 };
 
 #endif

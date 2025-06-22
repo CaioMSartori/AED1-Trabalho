@@ -4,27 +4,33 @@
 #include "Contato.h"
 using namespace std;
 
+// CONSTRUTOR
 AVLTree::AVLTree() {
     root = NULL;
 }
 
+// DESTRUTOR
 AVLTree::~AVLTree() {
     clear_();
 }
 
+// VERIFICA SE A ARVORE ESTAH VAZIA
 bool AVLTree::empty_() {
     return (root == NULL);
 }
 
+// VERIFICA SE A ARVORE ESTAH CHEIA
 bool AVLTree::full_() {
     return false;
 }
 
+// LIMPA A RAIZ DA ARVORE
 void AVLTree::clear_() {
     clear_(root);
     root = NULL;
 }
 
+// AUXILIA NA LIMPEZA DA ARVORE
 void AVLTree::clear_(TreePointer &t) {
     if(t != NULL) {
         clear_(t->leftNode);
@@ -33,11 +39,13 @@ void AVLTree::clear_(TreePointer &t) {
     }
 }
 
+// INSERE UM CONTATO NA ARVORE
 void AVLTree::searchInsert_(Contato c) {
     bool h = false;
     searchInsert_(c, root, h);
 }
 
+// AUXILIA NA INSERCAO DO CONTATO NO METODO ANTERIOR
 void AVLTree::searchInsert_(Contato c, TreePointer &pA, bool &h) {
     TreePointer pB, pC;
 
@@ -141,11 +149,13 @@ void AVLTree::searchInsert_(Contato c, TreePointer &pA, bool &h) {
     }
 }
 
+// REMOVE UM CONTATO DA ARVORE CHAMANDO O METODO PRIVADO
 bool AVLTree::remove_(string n) {
     bool h = false;
     return remove_(n, root, h);
 }
 
+// FAZ A REMOCAO DO NOH E REALIZA O BALANCEAMENTO DA ARVORE APOS A REMOCAO
 bool AVLTree::remove_(string n, TreePointer &p, bool &h) {
     TreePointer q;
     bool removed;
@@ -190,6 +200,7 @@ bool AVLTree::remove_(string n, TreePointer &p, bool &h) {
     }
 }
 
+// AUXILIA NA REMOCAO AO REMOVER O MENOR NOH
 void AVLTree::removeMin(TreePointer &q, TreePointer &r, bool &h) {
     if(r->leftNode != NULL) {
         removeMin(q, r->leftNode, h);
@@ -204,6 +215,7 @@ void AVLTree::removeMin(TreePointer &q, TreePointer &r, bool &h) {
     }
 }
 
+// REALIZA O BALANCEAMENTO DA ARVORE QUANDO ESTAH EM DESEQUILIBRIO A DIREITA
 void AVLTree::balanceL(TreePointer &pA, bool &h) {
     TreePointer pB, pC;
     int balB, balC;
@@ -256,6 +268,7 @@ void AVLTree::balanceL(TreePointer &pA, bool &h) {
     }
 }
 
+// REALIZA O BALANCEAMENTO DA ARVORE QUANDO ESTAH EM DESEQUILIBRIO A ESQUERDA
 void AVLTree::balanceR(TreePointer &pA, bool &h) {
     TreePointer pB, pC;
     int balB, balC;
@@ -308,10 +321,12 @@ void AVLTree::balanceR(TreePointer &pA, bool &h) {
     }
 }
 
+// CHAMA A BUSCA CHAMANDO O METODO PRIVADO
 Contato* AVLTree::search_(string n) {
     return search_(n, root);
 }
 
+// REALIZA A BUSCA DO CONTATO ANALIZANDO CADA NOH
 Contato* AVLTree::search_(string n, TreePointer &t) {
     if(t == NULL) {
         return NULL;
@@ -327,6 +342,7 @@ Contato* AVLTree::search_(string n, TreePointer &t) {
     }
 }
 
+// IMPRIME A ARVORE CHAMANDO O METODO PRIVADO E, SE ESTIVER VAZIA IMPRIME A MENSAGEM
 void AVLTree::print_() {
     if(root == NULL) {
         cout << "Lista vazia." << endl;
@@ -335,6 +351,7 @@ void AVLTree::print_() {
     print_(root);
 }
 
+// FAZ A IMPRESSAO DE TODOS OS CONTATOS ARMAZENADOS NA ARVORE
 void AVLTree::print_(TreePointer &t) {
     if(t != NULL) {
         print_(t->leftNode);

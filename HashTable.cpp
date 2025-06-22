@@ -4,16 +4,19 @@
 #include "Contato.h"
 using namespace std;
 
+// CONSTRUTOR
 HashTable::HashTable() {
     for(int i=0;i<TABLE_SIZE;i++) {
         table[i] = NULL;
     }
 }
 
+// DESTRUTOR
 HashTable::~HashTable() {
     clear_();
 }
 
+// VERIFICA SE A TABELA HASH ESTAH VAZIA
 bool HashTable::empty_() {
     for(int i=0;i<TABLE_SIZE;i++) {
         if(table[i] != NULL) {
@@ -23,10 +26,12 @@ bool HashTable::empty_() {
     return true;
 }
 
+// VERIFICA SE A TABELA HASH ESTAH CHEIA
 bool HashTable::full_() {
     return false;
 }
 
+// LIMPA A TABELA HASH
 void HashTable::clear_() {
     for(int i=0;i<TABLE_SIZE;i++) {
         HashPointer p;
@@ -41,6 +46,7 @@ void HashTable::clear_() {
     }
 }
 
+// INSERE UM CONTATO NA TABELA HASH
 void HashTable::insert_(Contato c) {
     int pos = transform_(c.getNome());
 
@@ -72,6 +78,7 @@ void HashTable::insert_(Contato c) {
     }
 }
 
+// REMOVE UM CONTATO DA TABELA HASH
 void HashTable::remove_(string n) {
     int pos = transform_(n);
     HashPointer p, q;
@@ -95,6 +102,7 @@ void HashTable::remove_(string n) {
     cout << "Remocao falhou. Contato nao existe" << endl;
 }
 
+// BUSCA UM CONTATO NA TABELA HASH
 Contato* HashTable::search_(string n) {
     int pos = transform_(n);
     HashPointer p;
@@ -109,6 +117,7 @@ Contato* HashTable::search_(string n) {
     return NULL;
 }
 
+// IMPRIME TODOS OS CONTATOS PRESENTES NA TABELA HASH
 void HashTable::print_() {
     if(empty_()) {
         cout << "Lista vazia." << endl;
@@ -134,6 +143,7 @@ void HashTable::print_() {
     }
 }
 
+// FUNCAO HASH - CONVERTE A STRING NUM INDICE VALIDO PARA A TABELA HASH
 int HashTable::transform_(string n) {
     int pos = 0;
     for(int i=0;i<(int)n.length();i++) {
