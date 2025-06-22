@@ -1,23 +1,39 @@
 # depslib dependency file v1.0
-1750398468 source:c:\semestre3\aed1\aed1-trabalho\avltree.cpp
+1750573330 source:c:\semestre3\aed1\aed1-trabalho\avltree.cpp
+	<iostream>
+	<string>
+	"AVLTree.h"
+	"Contato.h"
 
-1750403927 source:c:\semestre3\aed1\aed1-trabalho\contato.cpp
+1750569683 source:c:\semestre3\aed1\aed1-trabalho\contato.cpp
+	<iostream>
+	<list>
 	<string>
 	"Contato.h"
 
-1750403927 c:\semestre3\aed1\aed1-trabalho\contato.h
+1750565433 c:\semestre3\aed1\aed1-trabalho\contato.h
+	<list>
 	<string>
 
-1584205420 source:c:\semestre3\aed1\aed1-trabalho\main.cpp
+1750572992 source:c:\semestre3\aed1\aed1-trabalho\main.cpp
 	<iostream>
+	<string>
+	<limits>
+	"Contato.h"
+	"HashTable.h"
+	"AVLTree.h"
 
-1750484463 source:c:\semestre3\aed1\aed1-trabalho\hashtable.cpp
+1750569222 source:c:\semestre3\aed1\aed1-trabalho\hashtable.cpp
 	<iostream>
 	<string>
 	"HashTable.h"
 	"Contato.h"
 
-1750484164 c:\semestre3\aed1\aed1-trabalho\hashtable.h
+1750566241 c:\semestre3\aed1\aed1-trabalho\hashtable.h
+	<string>
+	"Contato.h"
+
+1750566808 c:\semestre3\aed1\aed1-trabalho\avltree.h
 	<string>
 	"Contato.h"
 

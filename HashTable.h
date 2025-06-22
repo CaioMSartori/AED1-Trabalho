@@ -14,7 +14,8 @@ public:
     void clear_();
     void insert_(Contato c);
     void remove_(string n);
-    Contato search_(string n);
+    Contato* search_(string n);
+    void print_();
 private:
     struct Position;
 

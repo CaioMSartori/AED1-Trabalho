@@ -1,22 +1,32 @@
 #ifndef CONTATO_H
 #define CONTATO_H
 
+#include <list>
 #include <string>
 using namespace std;
+
+struct Endereco {
+    string bairro;
+    string rua;
+    int numero;
+};
 
 class Contato {
 public:
     Contato();
-    Contato(string n, string f);
+    Contato(string n, string f, string b, string r, int num);
     ~Contato();
     string getNome();
-    string getFone();
-    void setNome(string n);
-    void setFone(string f);
+    list<string> &getTelefone();
+    string getBairro();
+    string getRua();
+    int getNumero();
+    void addTelefone(string f);
 private:
     struct Dados {
         string nome;
-        string fone;
+        list<string> telefone;
+        Endereco endereco;
     };
 
     Dados dados;

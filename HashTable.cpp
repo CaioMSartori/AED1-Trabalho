@@ -95,20 +95,43 @@ void HashTable::remove_(string n) {
     cout << "Remocao falhou. Contato nao existe" << endl;
 }
 
-Contato HashTable::search_(string n) {
+Contato* HashTable::search_(string n) {
     int pos = transform_(n);
     HashPointer p;
     p = table[pos];
 
     while(p != NULL) {
         if(p->contato.getNome() == n) {
-            cout << "Contato encontrado." << endl;
-            return p->contato;
+            return &p->contato;
         }
         p = p->nextContato;
     }
-    cout << "Busca falhou. Contato nao encontrado" << endl;
-    return Contato();
+    return NULL;
+}
+
+void HashTable::print_() {
+    if(empty_()) {
+        cout << "Lista vazia." << endl;
+        return;
+    }
+
+    cout << "------------------------------------------" << endl;
+
+    for(int i=0;i<TABLE_SIZE;i++) {
+        HashPointer p = table[i];
+
+        while(p != NULL) {
+            cout << "Nome: " << p->contato.getNome() << endl;
+            cout << "Telefones: " << endl;
+            for(string f : p->contato.getTelefone()) {
+                cout << f << endl;
+            }
+            cout << "Endereco: " << p->contato.getRua() << ", " << p->contato.getNumero() <<
+            ", " << p->contato.getBairro() << endl;
+            cout << "------------------------------------------" << endl;
+            p = p->nextContato;
+        }
+    }
 }
 
 int HashTable::transform_(string n) {

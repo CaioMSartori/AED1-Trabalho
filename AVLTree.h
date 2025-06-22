@@ -14,7 +14,8 @@ public:
     void clear_();
     void searchInsert_(Contato c);
     bool remove_(string n);
-    Contato search_(string n);
+    Contato* search_(string n);
+    void print_();
 private:
     struct TreeNode;
 
@@ -35,7 +36,8 @@ private:
     void removeMin(TreePointer &q, TreePointer &r, bool &h);
     void balanceL(TreePointer &pA, bool &h);
     void balanceR(TreePointer &pA, bool &h);
-    Contato search_(string n, TreePointer &t);
+    Contato* search_(string n, TreePointer &t);
+    void print_(TreePointer &t);
 };
 
 #endif

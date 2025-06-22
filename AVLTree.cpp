@@ -308,14 +308,13 @@ void AVLTree::balanceR(TreePointer &pA, bool &h) {
     }
 }
 
-Contato AVLTree::search_(string n) {
+Contato* AVLTree::search_(string n) {
     return search_(n, root);
 }
 
-Contato AVLTree::search_(string n, TreePointer &t) {
+Contato* AVLTree::search_(string n, TreePointer &t) {
     if(t == NULL) {
-        cout << "Busca falhou. Contato nao encontrado" << endl;
-        return Contato();
+        return NULL;
     }
     if(n < t->contato.getNome()) {
         return search_(n, t->leftNode);
@@ -323,8 +322,33 @@ Contato AVLTree::search_(string n, TreePointer &t) {
         if(n > t->contato.getNome()) {
             return search_(n, t->rightNode);
         } else {
-            cout << "Contato encontrado." << endl;
-            return t->contato;
+            return &t->contato;
         }
+    }
+}
+
+void AVLTree::print_() {
+    if(root == NULL) {
+        cout << "Lista vazia." << endl;
+        return;
+    }
+    print_(root);
+}
+
+void AVLTree::print_(TreePointer &t) {
+    if(t != NULL) {
+        print_(t->leftNode);
+
+        cout << "------------------------------------------" << endl;
+        cout << "Nome: " << t->contato.getNome() << endl;
+        cout << "Telefones: " << endl;
+        for(string f : t->contato.getTelefone()) {
+            cout << f << endl;
+        }
+        cout << "Endereco: " << t->contato.getRua() << ", " << t->contato.getNumero() <<
+        ", " << t->contato.getBairro() << endl;
+        cout << "------------------------------------------" << endl;
+
+        print_(t->rightNode);
     }
 }
