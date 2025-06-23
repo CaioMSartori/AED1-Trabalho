@@ -1,3 +1,5 @@
+//.CPP IMPLEMENTANDO OS METODOS DA ARVORE AVL. (USANDO OS CRITERIOS DE BALANCEAMENTO COMO NOS SLIDES)
+
 #include <iostream>
 #include <string>
 #include "AVLTree.h"
@@ -24,7 +26,7 @@ bool AVLTree::full_() {
     return false;
 }
 
-// LIMPA A RAIZ DA ARVORE
+// LIMPA A ARVORE
 void AVLTree::clear_() {
     clear_(root);
     root = NULL;
@@ -326,7 +328,7 @@ Contato* AVLTree::search_(string n) {
     return search_(n, root);
 }
 
-// REALIZA A BUSCA DO CONTATO ANALIZANDO CADA NOH
+// REALIZA A BUSCA DO CONTATO ANALISANDO CADA NOH
 Contato* AVLTree::search_(string n, TreePointer &t) {
     if(t == NULL) {
         return NULL;

@@ -1,6 +1,9 @@
 #ifndef HASHTABLE_H
 #define HASHTABLE_H
 
+//.H PARA DECLARACAO DA ESTRUTURA DE DADOS TABELA HASH, IMPLEMENTADA COM OS METODOS NECESSARIOS PARA
+//O TRABALHO E SEGUINDO OS MOLDES DOS SLIDES DO PROFESSOR.
+
 #include <string>
 #include "Contato.h"
 using namespace std;
@@ -17,7 +20,7 @@ public:
     Contato* search_(string n);     // BUSCA UM CONTATO NA TABELA HASH
     void print_();                  // IMPRIME TODOS OS CONTATOS PRESENTES NA TABELA HASH
 private:
-    // ESTRUTURA DA POSICAO DO CONTATO
+    // ESTRUTURA DA POSICAO DO CONTATO, PARA A LISTA ENCADEADA DAS POSICOES
     struct Position;
     typedef Position* HashPointer;
     struct Position {
@@ -25,7 +28,7 @@ private:
         HashPointer nextContato;
     };
 
-    // CONSTANTES PARA UTILIZACAO
+    // CONSTANTES PARA UTILIZACAO NO VETOR E NA FUNCAO HASHING
     static const int TABLE_SIZE = 101;
     static const int BASE = 128;
 

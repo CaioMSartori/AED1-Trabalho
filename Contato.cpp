@@ -1,3 +1,5 @@
+//.CPP IMPLEMENTANDO OS METODOS DA CLASSE CONTATO.
+
 #include <iostream>
 #include <list>
 #include <string>
@@ -22,7 +24,7 @@ Contato::Contato(string n, string f, string b, string r, int num) {
     dados.endereco.numero = num;
 }
 
-// DESTRUTOR
+// DESTRUTOR, VAZIO POIS NAO HA NECESSIDADE DE ELIMINACAO MANUAL
 Contato::~Contato() {}
 
 // METODOS GETS DAS INFORMACOES SOLICITADAS
@@ -46,7 +48,7 @@ int Contato::getNumero() {
     return dados.endereco.numero;
 }
 
-// VERIFICA SE O TELEFONE NAO JAH FOI ADICIONADO ANTERIORMENTE PARA O CONTATO
+// VERIFICA SE O TELEFONE JAH FOI ADICIONADO ANTERIORMENTE PARA O CONTATO, SE NAO, ADICIONA NOVO TELEFONE NA LISTA
 void Contato::addTelefone(string f) {
     for(string fone : dados.telefone) {
         if(fone == f) {

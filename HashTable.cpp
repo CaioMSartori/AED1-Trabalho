@@ -1,3 +1,5 @@
+//.CPP IMPLEMENTANDO OS METODOS DA TABELA HASH.
+
 #include <iostream>
 #include <string>
 #include "HashTable.h"

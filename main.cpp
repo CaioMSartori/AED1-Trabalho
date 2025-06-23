@@ -1,11 +1,14 @@
+//ARQUIVO DA MAIN, UTILIZANDO ALGUMAS FUNCOES AUXILIARES SIMPLES PARA IMPRESSAO DE DADOS E QUESTOES VISUAIS,
+//TAMBEM APLICANDO DIRETAMENTE AS ESTRUTURAS DE DADOS IMPLEMENTADAS PARA A RESOLUCAO DO PROBLEMA PROPOSTO.
+
 #include <iostream>
 #include <string>
-#include <limits>
+#include <limits>     //BIBLIOTECA PARA RESOLVER PROBLEMAS DE CAPTACAO DE ENTRADAS DO USUARIO
 #include "Contato.h"
 #include "HashTable.h"
 #include "AVLTree.h"
 
-// INSERE A BIBLOTECA DEPENDENDO SE FOR WINDOWS OU LINUX
+// INSERE A BIBLIOTECA DEPENDENDO SE FOR WINDOWS OU LINUX
 #ifdef _WIN32
 #include <windows.h>    // Sleep (esperarSegundos(int seg), windows)
 #else
@@ -40,7 +43,6 @@ void limparTela() {
 // AGUARDA O USUARIO PRESSIONAR ENTER PARA ENTAO PROSSEGUIR
 void esperarEnter() {
     cout << "\nPressione Enter para continuar...";
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     cin.get();
 }
 
@@ -66,7 +68,9 @@ void menu() {
 // ------------------------------------------
 
 int main() {
-    int option1 = 0;
+    int option1 = 0;   //VARIAVEL QUE DEFINIRA SE O PROGRAMA UTILIZARA TABELAS HASH OU ARVORE AVL
+    HashTable ListaTelefonica_Hash;
+    AVLTree ListaTelefonica_AVL;
 
     cout << "SELECIONE A FORMA DE IMPLEMENTACAO:" << endl << endl;
     cout << "Digite 1 para Tabelas Hash." << endl;
@@ -74,304 +78,184 @@ int main() {
     cout << "Opcao: ";
     cin >> option1;
 
-    switch(option1) {
+    if(option1 != 1 && option1 != 2) {
+        cout << endl;
+        cout << "Opcao invalida." << endl;
+        cout << "Encerrando programa." << endl;
+        esperarSegundos(2);
+        return 0;
+    }
 
-        // ARMAZENAMENTO NA TABELA HASH
-        case 1: {
-            HashTable ListaTelefonica;
-            int option2 = 0;
+    int option2 = 0;   //VARIAVEL QUE DEFINIRA A OPERACAO A SER REALIZADA NO MENU
 
-            while(option2 != 6) {
+    while(option2 != 6) {
+        limparTela();
+        menu();
+        cout << "Opcao: ";
+        cin >> option2;
+        if(cin.fail()) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+        cout << endl;
+
+        switch(option2) {
+            case 1: {   // INSERIR CONTATO
                 limparTela();
-                menu();
-                cout << "Opcao: ";
-                cin >> option2;
-                if(cin.fail()) {
-                    cin.clear();
-                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                string n, f, b, r;
+                int num;
+
+                cout << "NOVO CONTATO" << endl << endl;
+                cin.ignore();
+                cout << "Nome: ";
+                getline(cin, n);
+                cout << "Telefone: ";
+                getline(cin, f);
+                cout << "Bairro: ";
+                getline(cin, b);
+                cout << "Rua: ";
+                getline(cin, r);
+
+                while(true) {
+                    cout << "Numero: ";
+                    cin >> num;
+
+                    if(cin.fail()) {   //PARA EVITAR PROBLEMAS DE CAPTACAO DO INT
+                        cin.clear();
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                        cout << endl;
+                        cout << "Entrada invalida." << endl;
+                        esperarSegundos(2);
+                        apagarLinha();
+                        apagarLinha();
+                        apagarLinha();
+                    } else {
+                        break;
+                    }
                 }
                 cout << endl;
 
-                switch(option2) {
-                    case 1: {   // INSERIR CONTATO
-                        limparTela();
-                        string n, f, b, r;
-                        int num;
+                Contato novo(n, f, b, r, num);
 
-                        cout << "NOVO CONTATO" << endl << endl;
-                        cin.ignore();
-                        cout << "Nome: ";
-                        getline(cin, n);
-                        cout << "Telefone: ";
-                        getline(cin, f);
-                        cout << "Bairro: ";
-                        getline(cin, b);
-                        cout << "Rua: ";
-                        getline(cin, r);
-
-                        while(true) {
-                            cout << "Numero: ";
-                            cin >> num;
-
-                            if(cin.fail()) {
-                                cin.clear();
-                                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                                cout << endl;
-                                cout << "Entrada invalida." << endl;
-                                esperarSegundos(2);
-                                apagarLinha();
-                                apagarLinha();
-                                apagarLinha();
-                            } else {
-                                break;
-                            }
-                        }
-                        cout << endl;
-
-                        Contato novo(n, f, b, r, num);
-                        ListaTelefonica.insert_(novo);
-                        break;
-                    }
-                    case 2: {   // ADICIONAR MAIS UM TELEFONE A UM CONTATO
-                        limparTela();
-                        string n;
-
-                        cin.ignore();
-                        cout << "Nome do contato: ";
-                        getline(cin, n);
-
-                        Contato* alterar = ListaTelefonica.search_(n);
-
-                        if(alterar != NULL) {
-                            string f;
-
-                            cout << "Numero: ";
-                            getline(cin, f);
-                            cout << endl;
-
-                            alterar->addTelefone(f);
-                        } else {
-                            cout << endl;
-                            cout << "Contato nao encontrado." << endl;
-                        }
-
-                        cout << endl;
-                        break;
-                    }
-                    case 3: {   // REMOVER CONTATO
-                        limparTela();
-                        string n;
-
-                        cin.ignore();
-                        cout << "Nome do contato: ";
-                        getline(cin, n);
-                        cout << endl;
-
-                        ListaTelefonica.remove_(n);
-                        cout << endl;
-                        break;
-                    }
-                    case 4: {   // BUSCAR CONTATO
-                        limparTela();
-                        string n;
-
-                        cin.ignore();
-                        cout << "Nome do contato: ";
-                        getline(cin, n);
-                        cout << "\nBuscando...";
-
-                        Contato* buscar = ListaTelefonica.search_(n);
-
-                        if(buscar != NULL) {
-                            limparTela();
-                            cout << "INFORMACOES DO CONTATO" << endl;
-                            cout << "Nome: " << n << endl;
-                            cout << "Telefones: " << endl;
-                            for(string f : buscar->getTelefone()) {
-                                cout << f << endl;
-                            }
-                            cout << "Endereco: " << buscar->getRua() << ", " << buscar->getNumero() <<
-                            ", " << buscar->getBairro() << endl;
-                            esperarEnter();
-                        } else {
-                            limparTela();
-                            cout << "Contato nao encontrado." << endl;
-                            esperarSegundos(2);
-                        }
-                        break;
-                    }
-                    case 5: {   // IMPRIMIR LISTA COM TODOS OS CONTATOS
-                        limparTela();
-                        cout << "LISTA DE CONTATOS" << endl << endl;
-                        ListaTelefonica.print_();
-
-                        esperarEnter();
-                        break;
-                    }
-                    case 6: {   // ENCERRAR PROGRAMA
-                        cout << "Encerrando..." << endl;
-                        esperarSegundos(2);
-                        break;
-                    }
-                    default: {
-                        cout << "Opcao invalida." << endl;
-                        break;
-                    }
+                //ESCOLHA QUE SE REPETIRA NOS CASES, QUE PELA ESCOLHA INICIAL DO USUARIO, APLICARA
+                //AS OPERACOES NA ESTRUTURA DE DADOS DESEJADA
+                if(option1 == 1) {
+                    ListaTelefonica_Hash.insert_(novo);
+                } else if(option1 == 2) {
+                    ListaTelefonica_AVL.searchInsert_(novo);
                 }
+
+                break;
             }
-            break;
-        }
-
-        // ARMAZENAMENTO NA ARVORE
-        case 2: {
-            AVLTree ListaTelefonica;
-            int option3 = 0;
-
-            while(option3 != 6) {
+            case 2: {   // ADICIONAR MAIS UM TELEFONE A UM CONTATO
                 limparTela();
-                menu();
-                cout << "Opcao: ";
-                cin >> option3;
-                if(cin.fail()) {
-                    cin.clear();
-                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                string n;
+
+                cin.ignore();
+                cout << "Nome do contato: ";
+                getline(cin, n);
+
+                Contato* alterar = NULL;
+
+                if(option1 == 1) {
+                    alterar = ListaTelefonica_Hash.search_(n);
+                } else if(option1 == 2) {
+                    alterar = ListaTelefonica_AVL.search_(n);
                 }
+
+                if(alterar != NULL) {
+                    string f;
+
+                    cout << "Numero: ";
+                    getline(cin, f);
+                    cout << endl;
+
+                    alterar->addTelefone(f);
+                } else {
+                    cout << endl;
+                    cout << "Contato nao encontrado." << endl;
+                }
+
+                cout << endl;
+                break;
+            }
+            case 3: {   // REMOVER CONTATO
+                limparTela();
+                string n;
+
+                cin.ignore();
+                cout << "Nome do contato: ";
+                getline(cin, n);
                 cout << endl;
 
-                switch(option3) {
-                    case 1: {   // INSERIR CONTATO
-                        limparTela();
-                        string n, f, b, r;
-                        int num;
-
-                        cout << "NOVO CONTATO" << endl << endl;
-                        cin.ignore();
-                        cout << "Nome: ";
-                        getline(cin, n);
-                        cout << "Telefone: ";
-                        getline(cin, f);
-                        cout << "Bairro: ";
-                        getline(cin, b);
-                        cout << "Rua: ";
-                        getline(cin, r);
-
-                        while(true) {
-                            cout << "Numero: ";
-                            cin >> num;
-
-                            if(cin.fail()) {
-                                cin.clear();
-                                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                                cout << endl;
-                                cout << "Entrada invalida." << endl;
-                                esperarSegundos(2);
-                                apagarLinha();
-                                apagarLinha();
-                                apagarLinha();
-                            } else {
-                                break;
-                            }
-                        }
-                        cout << endl;
-
-                        Contato novo(n, f, b, r, num);
-                        ListaTelefonica.searchInsert_(novo);
-                        break;
-                    }
-                    case 2: {   // ADICIONAR MAIS UM TELEFONE A UM CONTATO
-                        limparTela();
-                        string n;
-
-                        cin.ignore();
-                        cout << "Nome do contato: ";
-                        getline(cin, n);
-
-                        Contato* alterar = ListaTelefonica.search_(n);
-
-                        if(alterar != NULL) {
-                            string f;
-
-                            cout << "Numero: ";
-                            getline(cin, f);
-                            cout << endl;
-
-                            alterar->addTelefone(f);
-                        } else {
-                            cout << endl;
-                            cout << "Contato nao encontrado." << endl;
-                        }
-
-                        cout << endl;
-                        break;
-                    }
-                    case 3: {   // REMOVER CONTATO
-                        limparTela();
-                        string n;
-
-                        cin.ignore();
-                        cout << "Nome do contato: ";
-                        getline(cin, n);
-                        cout << endl;
-
-                        ListaTelefonica.remove_(n);
-                        cout << endl;
-                        break;
-                    }
-                    case 4: {   // BUSCAR CONTATO
-                        limparTela();
-                        string n;
-
-                        cin.ignore();
-                        cout << "Nome do contato: ";
-                        getline(cin, n);
-                        cout << "\nBuscando...";
-
-                        Contato* buscar = ListaTelefonica.search_(n);
-
-                        if(buscar != NULL) {
-                            limparTela();
-                            cout << "INFORMACOES DO CONTATO" << endl;
-                            cout << "Nome: " << n << endl;
-                            cout << "Telefones: " << endl;
-                            for(string f : buscar->getTelefone()) {
-                                cout << f << endl;
-                            }
-                            cout << "Endereco: " << buscar->getRua() << ", " << buscar->getNumero() <<
-                            ", " << buscar->getBairro() << endl;
-                            esperarEnter();
-                        } else {
-                            limparTela();
-                            cout << "Contato nao encontrado." << endl;
-                            esperarSegundos(2);
-                        }
-                        break;
-                    }
-                    case 5: {   // IMPRIMIR LISTA COM TODOS OS CONTATOS
-                        limparTela();
-                        cout << "LISTA DE CONTATOS" << endl << endl;
-                        ListaTelefonica.print_();
-
-                        esperarEnter();
-                        break;
-                    }
-                    case 6: {   // ENCERRAR PROGRAMA
-                        cout << "Encerrando..." << endl;
-                        esperarSegundos(2);
-                        break;
-                    }
-                    default: {
-                        cout << "Opcao invalida." << endl;
-                        break;
-                    }
+                if(option1 == 1) {
+                    ListaTelefonica_Hash.remove_(n);
+                } else if(option1 == 2) {
+                    ListaTelefonica_AVL.remove_(n);
                 }
+
+                cout << endl;
+                break;
             }
-            break;
-        }
-        default: {  // ENCERRA O PROGRAMA
-            cout << "Opcao invalida." << endl;
-            cout << "Encerrando programa." << endl;
-            esperarSegundos(2);
-            break;
+            case 4: {   // BUSCAR CONTATO
+                limparTela();
+                string n;
+
+                cin.ignore();
+                cout << "Nome do contato: ";
+                getline(cin, n);
+                cout << "\nBuscando...";
+
+                Contato* buscar = NULL;
+
+                if(option1 == 1) {
+                    buscar = ListaTelefonica_Hash.search_(n);
+                } else if(option1 == 2) {
+                    buscar = ListaTelefonica_AVL.search_(n);
+                }
+
+                if(buscar != NULL) {
+                    limparTela();
+                    cout << "INFORMACOES DO CONTATO" << endl;
+                    cout << "Nome: " << n << endl;
+                    cout << "Telefones: " << endl;
+                    for(string f : buscar->getTelefone()) {
+                        cout << f << endl;
+                    }
+                    cout << "Endereco: " << buscar->getRua() << ", " << buscar->getNumero() <<
+                    ", " << buscar->getBairro() << endl;
+                    esperarEnter();
+                } else {
+                    limparTela();
+                    cout << "Contato nao encontrado." << endl;
+                    esperarSegundos(2);
+                }
+
+                break;
+            }
+            case 5: {   // IMPRIMIR LISTA COM TODOS OS CONTATOS
+                limparTela();
+                cout << "LISTA DE CONTATOS" << endl << endl;
+
+                if(option1 == 1) {
+                    ListaTelefonica_Hash.print_();
+                } else if(option1 == 2) {
+                    ListaTelefonica_AVL.print_();
+                }
+
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                esperarEnter();
+                break;
+            }
+            case 6: {   // ENCERRAR PROGRAMA
+                cout << "Encerrando..." << endl;
+                esperarSegundos(2);
+                break;
+            }
+            default: {   // CASO A OPCAO INSERIDA PELO USUARIO SEJA INVALIDA
+                cout << "Opcao invalida." << endl;
+                break;
+            }
         }
     }
     return 0;
