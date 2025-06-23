@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <limits>     //BIBLIOTECA PARA RESOLVER PROBLEMAS DE CAPTACAO DE ENTRADAS DO USUARIO
+#include <algorithm>     //BIBLIOTECA PARA GARANTIR QUE UMA STRING TENHA APENAS NUMEROS
 #include "Contato.h"
 #include "HashTable.h"
 #include "AVLTree.h"
@@ -50,6 +51,11 @@ void esperarEnter() {
 void apagarLinha() {
     cout << "\033[A" << flush;
     cout << "\33[2K\r" << flush;
+}
+
+// FUNCAO PARA GARANTIR QUE TELEFONE TENHA APENAS NUMEROS
+bool somenteNumeros(string f) {
+    return !f.empty() && all_of(f.begin(), f.end(), ::isdigit);
 }
 
 // MENU PRINCIPAL
@@ -109,8 +115,23 @@ int main() {
                 cin.ignore();
                 cout << "Nome: ";
                 getline(cin, n);
-                cout << "Telefone: ";
-                getline(cin, f);
+
+                while(true) {
+                    cout << "Telefone: ";
+                    getline(cin, f);
+
+                    if(somenteNumeros(f)) {
+                        break;
+                    } else {
+                        cout << endl;
+                        cout << "Telefone invalido. Digite apenas numeros." << endl;
+                        esperarSegundos(2);
+                        apagarLinha();
+                        apagarLinha();
+                        apagarLinha();
+                    }
+                }
+
                 cout << "Bairro: ";
                 getline(cin, b);
                 cout << "Rua: ";
@@ -124,7 +145,7 @@ int main() {
                         cin.clear();
                         cin.ignore(numeric_limits<streamsize>::max(), '\n');
                         cout << endl;
-                        cout << "Entrada invalida." << endl;
+                        cout << "Entrada invalida. Digite apenas numeros." << endl;
                         esperarSegundos(2);
                         apagarLinha();
                         apagarLinha();
@@ -166,10 +187,23 @@ int main() {
                 if(alterar != NULL) {
                     string f;
 
-                    cout << "Numero: ";
-                    getline(cin, f);
-                    cout << endl;
+                    while(true) {
+                        cout << "Telefone: ";
+                        getline(cin, f);
 
+                        if(somenteNumeros(f)) {
+                            break;
+                        } else {
+                            cout << endl;
+                            cout << "Telefone invalido. Digite apenas numeros." << endl;
+                            esperarSegundos(2);
+                            apagarLinha();
+                            apagarLinha();
+                            apagarLinha();
+                        }
+                    }
+
+                    cout << endl;
                     alterar->addTelefone(f);
                 } else {
                     cout << endl;
@@ -216,7 +250,7 @@ int main() {
 
                 if(buscar != NULL) {
                     limparTela();
-                    cout << "INFORMACOES DO CONTATO" << endl;
+                    cout << "INFORMACOES DO CONTATO" << endl << endl;
                     cout << "Nome: " << n << endl;
                     cout << "Telefones: " << endl;
                     for(string f : buscar->getTelefone()) {
